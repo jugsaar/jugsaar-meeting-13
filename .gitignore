@@ -1,0 +1,11 @@
+bower_modules/
+node_modules/
+target/
+
+.classpath
+.project
+.settings
+.springBeans
+
+*.iml
+.idea
