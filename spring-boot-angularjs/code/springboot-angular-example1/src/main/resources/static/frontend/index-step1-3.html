@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html data-ng-app="">
+<head>
+<title>Spring Boot with AngularJS</title>
+</head>
+<body>
+
+	<div class="container"
+		data-ng-init="customers=[{'name': 'Fritz', city: 'Saarbrücken'},{'name': 'Paul', city: 'Trier'}, {'name': 'Ralf', city: 'Mainz'}, {'name': 'Tom', city: 'Berlin'}]">
+
+		<h3>Iterating with the ng-repeat Directive with projection and
+			filter</h3>
+		<ul>
+			<li data-ng-repeat="cust in customers | orderBy: 'city'">
+				{{cust.name | uppercase}}</li>
+		</ul>
+
+		<br />
+
+		<h3>Iterating with the ng-repeat Directive with projection,
+			filter and ordering</h3>
+		<label for="txtCityPattern">City Pattern:</label> <input
+			id="txtCityPattern" type="text" data-ng-model="cityPattern" />
+		<ul>
+			<li
+				data-ng-repeat="cust in customers | filter:cityPattern | orderBy:'name'">{{cust.name}}
+				- {{cust.city}}</li>
+		</ul>
+	</div>
+
+	<a href="https://docs.angularjs.org/api/ng/filter" target="_blank">AngularJS
+		Filters</a>
+
+	<script type="text/javascript" src="/webjars/angularjs/1.3.8/angular.js"></script>
+
+<div>
+		<a href="../index.html">back to index</a>
+	</div>
+</body>
+</html>

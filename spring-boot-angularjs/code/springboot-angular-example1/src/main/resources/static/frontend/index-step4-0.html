@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html data-ng-app="angularDemo">
+<head>
+<title>Spring Boot with AngularJS</title>
+
+</head>
+<body>
+
+	<!-- Define the controller to use -->
+	<div>
+		<div data-ng-view=""><!-- Placeholder for the Views --></div>
+	</div>
+
+	<a href="https://docs.angularjs.org/api/ng" target="_blank">AngularJS</a>
+
+	<script type="text/javascript" src="/webjars/angularjs/1.3.8/angular.js"></script>
+	<script type="text/javascript" src="/webjars/angularjs/1.3.8/angular-route.js"></script>
+	<script type="text/javascript">
+
+var myApp = angular.module('angularDemo', [ "ngRoute" ]);
+
+
+myApp.config(function($routeProvider){
+	
+	$routeProvider.when("/view1", {
+		controller:"CustomerController",
+		templateUrl: "views/view1.html"
+	})
+	.when("/view2", {
+		controller:"CustomerController",
+		templateUrl: "views/view2.html"
+	})
+	.otherwise({redirectTo: "/view1"});
+});
+
+myApp.factory("customerRepository", function(){
+	
+	var repository = {
+		  customers : [
+	                 { name : "Fritz", city : "Saarbrücken" }
+	                 , { name : "Paul", city : "Trier" }
+	                 , { name : "Ralf", city : "Mainz" }
+	                 , { name : "Tom", city : "Berlin" }
+	                 ]
+		, getCustomers : function(){
+	    	return repository.customers;
+	    }
+		, addCustomer: function(customer){
+	    	repository.customers.push(customer);
+	    }
+	};
+	
+	return repository;
+});
+
+var controllers = {};
+controllers.CustomerController = function($scope, customerRepository) {
+	
+  $scope.customers = customerRepository.getCustomers();
+  
+  $scope.addCustomer = function(){
+	  customerRepository.addCustomer({ name : $scope.newCustomer.name, city : $scope.newCustomer.city });
+  };
+};
+
+myApp.controller(controllers);
+</script>
+
+<div>
+		<a href="../index.html">back to index</a>
+	</div>
+</body>
+</html>

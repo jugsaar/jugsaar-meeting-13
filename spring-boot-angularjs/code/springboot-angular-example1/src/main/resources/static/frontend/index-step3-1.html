@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html data-ng-app="angularDemo">
+<head>
+<title>Spring Boot with AngularJS</title>
+
+</head>
+<body>
+
+	<!-- Define the controller to use -->
+	<div>
+		<div data-ng-view=""><!-- Placeholder for the Views --></div>
+	</div>
+
+	<a href="https://docs.angularjs.org/api/ng" target="_blank">AngularJS</a>
+
+	<script type="text/javascript" src="/webjars/angularjs/1.3.8/angular.js"></script>
+	<script type="text/javascript" src="/webjars/angularjs/1.3.8/angular-route.js"></script>
+	<script type="text/javascript">
+
+var myApp = angular.module('angularDemo', [ "ngRoute" ]);
+
+
+myApp.config(function($routeProvider){ /* depenency injection in action: $routeProvider gets injected by angular */
+	
+	$routeProvider.when("/view1", {
+		controller:"CustomerController",
+		templateUrl: "views/view1.html"
+	})
+	.when("/view2", {
+		controller:"CustomerController",
+		templateUrl: "views/view2.html"
+	})
+	.otherwise({redirectTo: "/view1"});
+	
+});
+
+var controllers = {};
+controllers.CustomerController = function($scope) {
+	
+  $scope.customers = [
+    { name : "Fritz", city : "Saarbrücken" }
+    , { name : "Paul", city : "Trier" }
+    , { name : "Ralf", city : "Mainz" }
+    , { name : "Tom", city : "Berlin" }
+    ];
+  
+  $scope.name = "Paul";
+  
+  $scope.addCustomer = function(){
+	  $scope.customers.push({ name : $scope.newCustomer.name, city : $scope.newCustomer.city });
+  };
+};
+
+myApp.controller(controllers);
+</script>
+
+<div>
+		<a href="../index.html">back to index</a>
+	</div>
+
+</body>
+</html>
